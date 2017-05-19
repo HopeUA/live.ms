@@ -1,0 +1,11 @@
+{
+  "services": {
+    "auth": {
+      "url": "http://localhost:3001/v1"
+    }
+  },
+  "service": {
+    "group": "test",
+    "name": "live"
+  }
+}

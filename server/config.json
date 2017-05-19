@@ -1,0 +1,24 @@
+{
+  "restApiRoot": "/",
+  "host": "0.0.0.0",
+  "port": 3000,
+  "remoting": {
+    "rest": {
+      "handleErrors": false,
+      "handleUnknownPaths": false
+    },
+    "context": false,
+    "sharedMethods": {
+      "*": false
+    }
+  },
+  "services": {
+    "auth": {
+      "url": "https://auth.ms/v1"
+    }
+  },
+  "service":{
+    "group": "default",
+    "name": "live"
+  }
+}

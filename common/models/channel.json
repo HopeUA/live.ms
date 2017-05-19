@@ -1,0 +1,25 @@
+{
+  "name": "Channel",
+  "plural": "channels",
+  "base": "PersistedModel",
+  "strict": true,
+  "properties": {
+    "id": {
+      "type": "String",
+      "id": true,
+      "required": true,
+      "index": true
+    },
+    "title": {
+      "type": "String",
+      "required": true
+    }
+  },
+  "relations": {
+    "streams$": {
+      "type": "embedsMany",
+      "model": "Stream",
+      "property": "streams"
+    }
+  }
+}

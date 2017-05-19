@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "mongo",
+    "public": false
+  },
+  "Channel": {
+    "dataSource": "mongo",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "getOne": true,
+          "createOne": true,
+          "deleteOne": true,
+          "createStream": true
+        }
+      }
+    }
+  },
+  "Stream": {
+    "dataSource": "mongo",
+    "public": false
+  }
+}

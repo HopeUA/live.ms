@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://live.s.hope.ua/v1/schemas/channel.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "streams": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/stream"
+      }
+    }
+  },
+  "required": [
+    "id", "title"
+  ],
+  "definitions": {
+    "stream": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["hls", "dash", "rtmp"]
+        },
+        "offset": {
+          "type": "string",
+          "pattern": "^\\+\\d{2}:\\d{2}$"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id", "type", "offset", "url"
+      ]
+    }
+  }
+}

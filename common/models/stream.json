@@ -1,0 +1,26 @@
+{
+  "name": "Stream",
+  "plural": "streams",
+  "base": "PersistedModel",
+  "strict": true,
+  "properties": {
+    "id": {
+      "type": "String",
+      "id": true,
+      "required": true,
+      "index": true
+    },
+    "type": {
+      "type": "String",
+      "required": true
+    },
+    "offset": {
+      "type": "String",
+      "required": true
+    },
+    "url": {
+      "type": "String",
+      "required": true
+    }
+  }
+}
