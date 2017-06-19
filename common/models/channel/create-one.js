@@ -1,5 +1,6 @@
 import Acl from 'common/lib/acl';
 import RemoteMethod from 'common/lib/remote-method';
+import createError from 'http-errors';
 
 class CreateOne extends RemoteMethod {
     get name() {
@@ -28,9 +29,7 @@ class CreateOne extends RemoteMethod {
     before() {
         return async (ctx) => {
             if (!Acl.isGranted(ctx.req.user, 'channels:write')) {
-                const error = new Error('Access denied');
-                error.statusCode = 401;
-                throw error;
+                throw new createError.Unauthorized();
             }
         }
     }
@@ -39,7 +38,6 @@ class CreateOne extends RemoteMethod {
         return async (data) => {
             const Channel = this.model;
 
-            // TODO Валидация данных
             const channel = new Channel(data);
             await Channel.create(channel);
 

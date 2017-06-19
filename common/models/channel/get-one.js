@@ -1,4 +1,3 @@
-import Acl from 'common/lib/acl';
 import RemoteMethod from 'common/lib/remote-method';
 
 class GetOne extends RemoteMethod {
@@ -23,16 +22,6 @@ class GetOne extends RemoteMethod {
                 root: true
             }
         };
-    }
-
-    before() {
-        return async (ctx) => {
-            if (!Acl.isGranted(ctx.req.user, 'channels:read')) {
-                const error = new Error('Access denied');
-                error.statusCode = 401;
-                throw error;
-            }
-        }
     }
 
     remote() {

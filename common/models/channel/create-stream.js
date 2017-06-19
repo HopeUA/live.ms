@@ -1,5 +1,6 @@
 import Acl from 'common/lib/acl';
 import RemoteMethod from 'common/lib/remote-method';
+import createError from 'http-errors';
 
 class CreateStream extends RemoteMethod {
     get name() {
@@ -10,34 +11,42 @@ class CreateStream extends RemoteMethod {
         return {
             http: {
                 verb: 'post',
-                path: '/streams'
+                path: '/:id/streams'
             },
-            accepts: {
-                arg: 'data',
-                type: 'object',
-                http: { source: 'body' }
-            },
+            accepts: [
+                {
+                    arg: 'id',
+                    type: 'String',
+                    http: { source: 'path' }
+                },
+                {
+                    arg: 'data',
+                    type: 'object',
+                    http: { source: 'body' }
+                }
+            ],
             returns: {
-                type: 'Stream',
+                type: 'Channel',
                 root: true
-            },
-            isStatic: false
+            }
         };
     }
 
     before() {
         return async (ctx) => {
             if (!Acl.isGranted(ctx.req.user, 'channels:write')) {
-                const error = new Error('Access denied');
-                error.statusCode = 401;
-                throw error;
+                throw new createError.Unauthorized();
             }
         }
     }
 
     remote() {
-        return async function (data) {
-            const channel = this;
+        return async (id, data) => {
+            const channel = await this.model.findById(id);
+            if (!channel) {
+                throw new createError.NotFound();
+            }
+
             await channel.streams$.create(data);
 
             return channel;

@@ -1,14 +1,8 @@
 import * as RemoteMethods from './channel/index';
+import cleanRemoteMethods from 'common/lib/clean-remote-methods';
 import applyRemoteMethods from 'common/lib/apply-remote-methods';
 
 module.exports = (Channel) => {
-    Channel.on('attached', (app) => {
-        app.on('started', () => {
-            Channel.sharedClass.methods().forEach((m) => {
-                console.log(m.name);
-            });
-        });
-    });
-
+    cleanRemoteMethods(Channel);
     applyRemoteMethods(Channel, RemoteMethods);
 };

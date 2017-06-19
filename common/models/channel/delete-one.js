@@ -1,5 +1,6 @@
 import Acl from 'common/lib/acl';
 import RemoteMethod from 'common/lib/remote-method';
+import createError from 'http-errors';
 
 class DeleteOne extends RemoteMethod {
     get name() {
@@ -16,7 +17,7 @@ class DeleteOne extends RemoteMethod {
                 {
                     arg: 'id',
                     type: 'any',
-                    description: 'Model id',
+                    description: 'Channel id',
                     required: true,
                     http: { source: 'path' }
                 }
@@ -27,9 +28,7 @@ class DeleteOne extends RemoteMethod {
     before() {
         return async (ctx) => {
             if (!Acl.isGranted(ctx.req.user, 'channels:write')) {
-                const error = new Error('Access denied');
-                error.statusCode = 401;
-                throw error;
+                throw new createError.Unauthorized();
             }
         }
     }
