@@ -26,7 +26,8 @@
           "getOne": true,
           "createOne": true,
           "deleteOne": true,
-          "createStream": true
+          "createStream": true,
+          "getStream": true
         }
       }
     }
